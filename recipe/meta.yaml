@@ -1,5 +1,5 @@
 {% set name = "pyomicron" %}
-{% set version = "1.1.0" %}
+{% set version = "2.0.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,36 +7,39 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f13c7d758ce2ec75acf9940d9fba4590807e0cbe96fc997f5b21b1b30eacac17
+  sha256: e31e0e4bf2a308eb833faa93956a142bd1f29552da2c489cabc3cd81bf29ab9f
 
 build:
   noarch: python
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - omicron-hdf5-merge = omicron.cli.hdf5_merge:main
     - omicron-show = omicron.cli.show:main
     - omicron-process = omicron.cli.process:main
     - omicron-root-merge = omicron.cli.root_merge:main
+    - omicron-archive = omicron.cli.archive:main
     - omicron-status = omicron.cli.status:main
+    - omicron-merge-with-gaps = omicron.cli.merge_with_gaps:main
+    - omicron-metric-day-merge = omicron.cli.metric_day_merge:main
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python >=3.9
     - setuptools
   run:
     - dqsegdb2
     - gwdatafind
-    - gwpy >=1.0.0
+    - gwpy >=2.0.0
     - h5py
     - ligo-segments
     - lscsoft-glue >=1.60.0
     - markuppy
     - numpy
-    - omicron >=2.3.12
+    - omicron
     - pycondor
-    - python >=3.6
+    - python >=3.9
     - python-htcondor
     - python-ldas-tools-framecpp
     - python-ligo-lw >=1.4.0
@@ -69,6 +72,9 @@ test:
     - omicron-process --help
     - omicron-root-merge --help
     - omicron-status --help
+    - omicron-archive --help
+    - omicron-merge-metric-day --help
+    - omicron-merge-with-gaps --help
 
 about:
   home: https://github.com/gwpy/pyomicron
@@ -87,3 +93,6 @@ extra:
   recipe-maintainers:
     - alurban
     - duncanmmacleod
+    - areeda
+    - eagoetz
+    - robertbruntz
