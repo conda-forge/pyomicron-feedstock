@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - omicron-hdf5-merge = omicron.cli.hdf5_merge:main
@@ -27,6 +27,7 @@ requirements:
     - pip
     - python >=3.9
     - setuptools
+    - setuptools-scm
   run:
     - dqsegdb2 >=1.2.0
     - gwdatafind
