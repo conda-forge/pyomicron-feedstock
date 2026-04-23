@@ -1,13 +1,15 @@
 {% set name = "pyomicron" %}
-{% set version = "2.0.8" %}
+{% set version = "2.0.30" %}
+{% set python_min = "3.10" %}
+
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 27ae6b981dae8c9940774daa01a046c7eeae5aacfb01964bbde875ba3656ba67
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e9fea4b68cdcc61406f3a9d7b01c84fb4c70cf3fe12288a57cf9b88e8927779d
 
 build:
   noarch: python
@@ -25,9 +27,10 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools
   run:
+    - python >={{ python_min }},<3.12
     - dqsegdb2 >=1.2.0
     - gwdatafind
     - gwpy >=2.0.0
@@ -36,10 +39,9 @@ requirements:
     - ligo-segments
     - lscsoft-glue >=1.60.0
     - markuppy
-    - numpy
+    - numpy ==2.2.5
     - omicron >=2.3.12
     - pycondor
-    - python >=3.9
     - python-htcondor
     - python-ldas-tools-framecpp
     - python-ligo-lw >=1.4.0
@@ -47,6 +49,7 @@ requirements:
 
 test:
   requires:
+    - python {{ python_min }}
     - pip
     - pytest >=3.9.1
   imports:
